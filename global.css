@@ -1,6 +1,8 @@
 body {
     font-family: 'Courier New', monospace;
+    color: #c6c6c6;
     letter-spacing: .5rem;
+    background-color: #646464;
   }
   p {
     display: none;
@@ -19,7 +21,7 @@ body {
     animation: blink 1s infinite;
     display: inline-block;
     margin-left: 2px;
-    background-color: black;
+    background-color: #c6c6c6;
     width: 2px;
     height: 1em;
   }
