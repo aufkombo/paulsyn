@@ -1,13 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="global.css">
-    <title>SYN</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/main.js"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="global.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      let paragraphs = $("p");
+      let currentIndex = 0;
+      let typingSpeed = 50; // The speed of typing effect in milliseconds
+      let typingSoundSrc = './click1.wav'; // Path of the typing sound
+      
+      // Delay between paragraphs in milliseconds
+      let paragraphDelays = [1000, 2000, 500, 500, 500, 500, 1500, 2000, 500, 500, 500, 500, 500, 500];
+      let initialDelay = 2000; // Delay before the first paragraph is shown in milliseconds
+
+      function playSound() {
+        let typingSound = new Audio(typingSoundSrc);
+        typingSound.play();
+      }
+
+      function typeWriter(text, element) {
+        let i = 0;
+        let cursor = $('<span class="cursor"></span>');
+        element.append(cursor);
+        let interval = setInterval(function() {
+          if (i < text.length) {
+            cursor.before(text[i]);
+            playSound();
+            i++;
+          } else {
+            cursor.remove();
+            clearInterval(interval);
+            setTimeout(showNextParagraph, paragraphDelays[currentIndex]);
+          }
+        }, typingSpeed);
+      }
+
+      function showNextParagraph() {
+        if (currentIndex < paragraphs.length) {
+          let paragraph = $(paragraphs[currentIndex]);
+          paragraph.addClass("shown");
+          let text = paragraph.text();
+          paragraph.text('');
+          typeWriter(text, paragraph);
+          currentIndex++;
+        }
+      }
+
+      // Show the first paragraph initially
+      setTimeout(showNextParagraph, initialDelay);
+
+      setInterval(function() {
+        let flashingParagraph = $("#p7");
+        flashingParagraph.toggleClass("flash");
+      }, 500);
+
+      let backgroundSound1 = document.getElementById("backgroundSound1");
+      backgroundSound1.volume = 0.2; // Adjust the volume here (0.0 to 1.0)
+    });
+  </script>
+  <style>
+    /* CSS styles */
+    body {
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+    p {
+      display: none;
+      margin-bottom: 0.2em !important; /* Adjust the value to reduce spacing */
+    }
+
+    p.shown {
+      display: block;
+      line-height: 2;
+      margin-bottom: 0.2em !important; /* Adjust the value to reduce spacing */
+    }
+
+    .cursor {
+      animation: blink .75s step-end infinite;
+    }
+
+    @keyframes blink {
+      from, to {
+        color: transparent;
+      }
+      50% {
+        color: black;
+      }
+    }
+
+    .flash {
+      animation: flashAnimation 2s infinite;
+    }
+
+    @keyframes flashAnimation {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <audio id="backgroundSound" src="crackle.wav" autoplay loop></audio>
+  <audio id="backgroundSound1" src="static.wav" autoplay loop></audio>
+
+  <p id="p1">syn_</p>
+  <p>03-07</p>
+  <p>1830-2030</p>
+  <p>artez concert hall</p>
+  <p>utrechtseweg 85</p>
+  <p>arnhem</p>
+  <p id="p7" class="flash">FLASHING LIGHTS WARNING</p>
+  <p>concept: paul grieshammer</p>
+  <p>music: paul grieshammer, eric aelenei, johannes sauer, armin mey</p>
+  <p>visual: paul grieshammer, tobias van den hooff</p>
+  <p>light: robin te selle</p>
+  <p>sound: dennis spee, ivo welten</p>
+  <p>poster design: paul grieshammer, kaan pişkin</p>
+  <p>website: kaan pişkin</p>
+
+  <script type="module" src="/main.js"></script>
+
+</body>
 </html>

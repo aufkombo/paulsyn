@@ -1,0 +1,51 @@
+body {
+    font-family: 'Courier New', monospace;
+    letter-spacing: .5rem;
+  }
+  p {
+    display: none;
+    white-space: pre-wrap;
+    margin-bottom: 0.2em !important; /* Adjust the value to reduce spacing */
+  }
+  .shown {
+    display: block;
+  }
+  @keyframes blink {
+    0% {opacity: 1.0;}
+    50% {opacity: 0.0;}
+    100% {opacity: 1.0;}
+  }
+  .cursor {
+    animation: blink 1s infinite;
+    display: inline-block;
+    margin-left: 2px;
+    background-color: black;
+    width: 2px;
+    height: 1em;
+  }
+
+  body {
+    font-family: 'Courier New', Courier, monospace;
+  }
+  
+ 
+  #p1 {
+    font-size: 3em; /* adjust as needed */
+  }
+
+  #p7 {
+    font-size: 2em; /* adjust as needed */
+  }
+  
+  .flash {
+    animation: flashAnimation 2s infinite;
+  }
+
+  @keyframes flashAnimation {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
